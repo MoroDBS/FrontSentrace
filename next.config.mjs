@@ -67,11 +67,13 @@ const nextConfig = {
 
   // Proxy API en développement (HTTP uniquement)
   async rewrites() {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8082';
+    
     return {
       beforeFiles: [
         {
           source: '/api/:path*',
-          destination: 'http://localhost:8082/api/:path*',
+          destination: `${apiUrl}/api/:path*`,
         },
       ],
     };
