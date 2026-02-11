@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useRouter, useParams } from 'next/navigation';
 import {
   Accordion,
   AccordionSummary,
@@ -21,7 +21,7 @@ import useSettingsStyles from './common/useSettingsStyles';
 import fetchOrThrow from '../common/util/fetchOrThrow';
 
 const AccumulatorsPage = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { classes } = useSettingsStyles();
   const t = useTranslation();
 
@@ -48,7 +48,7 @@ const AccumulatorsPage = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(item),
     });
-    navigate(-1);
+    router.push(-1);
   });
 
   return (
@@ -81,7 +81,7 @@ const AccumulatorsPage = () => {
               type="button"
               color="primary"
               variant="outlined"
-              onClick={() => navigate(-1)}
+              onClick={() => router.push(-1)}
             >
               {t('sharedCancel')}
             </Button>

@@ -5,7 +5,7 @@ import {
   Typography, Container, Paper, AppBar, Toolbar, IconButton, Table, TableHead, TableRow, TableCell, TableBody,
 } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useRouter, useParams } from 'next/navigation';
 import { useEffectAsync } from '../reactHelper';
 import BackIcon from '../common/components/BackIcon';
 import fetchOrThrow from '../common/util/fetchOrThrow';
@@ -28,7 +28,7 @@ const useStyles = makeStyles()((theme) => ({
 
 const NetworkPage = () => {
   const { classes } = useStyles();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const { positionId } = useParams();
 
@@ -58,7 +58,7 @@ const NetworkPage = () => {
     <div className={classes.root}>
       <AppBar position="sticky" color="inherit">
         <Toolbar>
-          <IconButton color="inherit" edge="start" sx={{ mr: 2 }} onClick={() => navigate(-1)}>
+          <IconButton color="inherit" edge="start" sx={{ mr: 2 }} onClick={() => router.push(-1)}>
             <BackIcon />
           </IconButton>
           <Typography variant="h6">

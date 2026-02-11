@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux';
-import { Link } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import Link from 'next/link';
 import {
   formatAlarm,
   formatAltitude,
@@ -111,11 +110,11 @@ const PositionValue = ({ position, property, attribute }) => {
         <>
           {formatValue(value)}
           &nbsp;&nbsp;
-          {!deviceReadonly && <Link component={RouterLink} underline="none" to={`/settings/accumulators/${position.deviceId}`}>&#9881;</Link>}
+          {!deviceReadonly && <Link href={`/settings/accumulators/${position.deviceId}`}>&#9881;</Link>}
         </>
       );
     case 'network':
-      return <Link component={RouterLink} underline="none" to={`/network/${position.id}`}>{t('sharedInfoTitle')}</Link>;
+      return <Link href={`/network/${position.id}`}>{t('sharedInfoTitle')}</Link>;
     case 'geofenceIds':
       return <GeofencesValue geofenceIds={value} />;
     case 'driverUniqueId':

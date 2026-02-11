@@ -3,7 +3,7 @@ import {
   Button, TextField, Typography, Snackbar, IconButton,
 } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useRouter, useSearchParams } from 'next/navigation';
 import LoginLayout from './LoginLayout';
 import { useTranslation } from '../common/components/LocalizationProvider';
 import { snackBarDurationShortMs } from '../common/util/duration';
@@ -31,7 +31,7 @@ const useStyles = makeStyles()((theme) => ({
 
 const ResetPasswordPage = () => {
   const { classes } = useStyles();
-  const navigate = useNavigate();
+  const router = useRouter();
   const t = useTranslation();
 
   const [searchParams] = useSearchParams();
@@ -61,7 +61,7 @@ const ResetPasswordPage = () => {
     <LoginLayout>
       <div className={classes.container}>
         <div className={classes.header}>
-          <IconButton color="primary" onClick={() => navigate('/login')}>
+          <IconButton color="primary" onClick={() => router.push('/login')}>
             <BackIcon />
           </IconButton>
           <Typography className={classes.title} color="primary">
@@ -102,7 +102,7 @@ const ResetPasswordPage = () => {
       </div>
       <Snackbar
         open={snackbarOpen}
-        onClose={() => navigate('/login')}
+        onClose={() => router.push('/login')}
         autoHideDuration={snackBarDurationShortMs}
         message={!token ? t('loginResetSuccess') : t('loginUpdateSuccess')}
       />

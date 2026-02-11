@@ -1,7 +1,7 @@
 import {
   Fragment, useCallback, useEffect, useRef, useState,
 } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
   IconButton, Table, TableBody, TableCell, TableHead, TableRow,
 } from '@mui/material';
@@ -31,7 +31,7 @@ import fetchOrThrow from '../common/util/fetchOrThrow';
 import SelectField from '../common/components/SelectField';
 
 const PositionsReportPage = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { classes } = useReportStyles();
   const t = useTranslation();
 
@@ -104,7 +104,7 @@ const PositionsReportPage = () => {
   const onSchedule = useCatch(async (deviceIds, groupIds, report) => {
     report.type = 'route';
     await scheduleReport(deviceIds, groupIds, report);
-    navigate('/reports/scheduled');
+    router.push('/reports/scheduled');
   });
 
   return (

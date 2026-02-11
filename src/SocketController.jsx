@@ -2,7 +2,7 @@ import {
   useCallback, useEffect, useRef, useState,
 } from 'react';
 import { useDispatch, useSelector, connect } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { Snackbar } from '@mui/material';
 import { devicesActions, sessionActions } from './store';
 import { useCatchCallback, useEffectAsync } from './reactHelper';
@@ -17,7 +17,7 @@ const logoutCode = 4000;
 
 const SocketController = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const authenticated = useSelector((state) => Boolean(state.session.user));
   const includeLogs = useSelector((state) => state.session.includeLogs);
@@ -80,7 +80,7 @@ const SocketController = () => {
             dispatch(sessionActions.updatePositions(await positionsResponse.json()));
           }
           if (devicesResponse.status === 401 || positionsResponse.status === 401) {
-            navigate('/login');
+            router.push('/login');
           }
         } catch {
           // ignore errors

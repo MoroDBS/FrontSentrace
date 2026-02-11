@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { useTheme } from '@mui/material/styles';
 import {
@@ -43,7 +43,7 @@ const columnsArray = [
 const columnsMap = new Map(columnsArray);
 
 const StopReportPage = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { classes } = useReportStyles();
   const t = useTranslation();
   const theme = useTheme();
@@ -98,7 +98,7 @@ const StopReportPage = () => {
   const onSchedule = useCatch(async (deviceIds, groupIds, report) => {
     report.type = 'stops';
     await scheduleReport(deviceIds, groupIds, report);
-    navigate('/reports/scheduled');
+    router.push('/reports/scheduled');
   });
 
   const formatValue = (item, key) => {

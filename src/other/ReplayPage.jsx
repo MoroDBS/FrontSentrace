@@ -11,7 +11,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import FastForwardIcon from '@mui/icons-material/FastForward';
 import FastRewindIcon from '@mui/icons-material/FastRewind';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import MapView from '../map/core/MapView';
 import MapRoutePath from '../map/MapRoutePath';
@@ -80,7 +80,7 @@ const useStyles = makeStyles()((theme) => ({
 const ReplayPage = () => {
   const t = useTranslation();
   const { classes } = useStyles();
-  const navigate = useNavigate();
+  const router = useRouter();
   const timerRef = useRef();
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -179,7 +179,7 @@ const ReplayPage = () => {
       <div className={classes.sidebar}>
         <Paper elevation={3} square>
           <Toolbar>
-            <IconButton edge="start" sx={{ mr: 2 }} onClick={() => navigate(-1)}>
+            <IconButton edge="start" sx={{ mr: 2 }} onClick={() => router.push(-1)}>
               <BackIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>{t('reportReplay')}</Typography>

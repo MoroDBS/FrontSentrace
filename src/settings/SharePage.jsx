@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useRouter, useParams } from 'next/navigation';
 import dayjs from 'dayjs';
 import {
   Accordion,
@@ -20,7 +20,7 @@ import useSettingsStyles from './common/useSettingsStyles';
 import fetchOrThrow from '../common/util/fetchOrThrow';
 
 const SharePage = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { classes } = useSettingsStyles();
   const t = useTranslation();
 
@@ -88,7 +88,7 @@ const SharePage = () => {
             type="button"
             color="primary"
             variant="outlined"
-            onClick={() => navigate(-1)}
+            onClick={() => router.push(-1)}
           >
             {t('sharedCancel')}
           </Button>

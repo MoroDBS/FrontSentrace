@@ -6,7 +6,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { makeStyles } from 'tss-react/mui';
 import RemoveDialog from '../../common/components/RemoveDialog';
 import { useTranslation } from '../../common/components/LocalizationProvider';
@@ -30,7 +30,7 @@ const CollectionActions = ({
 }) => {
   const theme = useTheme();
   const { classes } = useStyles();
-  const navigate = useNavigate();
+  const router = useRouter();
   const t = useTranslation();
 
   const phone = useMediaQuery(theme.breakpoints.down('sm'));
@@ -39,7 +39,7 @@ const CollectionActions = ({
   const [removing, setRemoving] = useState(false);
 
   const handleEdit = () => {
-    navigate(`${editPath}/${itemId}`);
+    router.push(`${editPath}/${itemId}`);
     setMenuAnchorEl(null);
   };
 

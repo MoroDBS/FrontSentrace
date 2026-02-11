@@ -4,7 +4,7 @@ import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import { useEffect, useMemo } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { useTheme } from '@mui/material/styles';
 import { map } from '../core/MapView';
 import { findFonts, geofenceToFeature, geometryToArea } from '../core/mapUtil';
@@ -21,7 +21,7 @@ MapboxDraw.constants.classes.CONTROL_GROUP = 'maplibregl-ctrl-group';
 const MapGeofenceEdit = ({ selectedGeofenceId }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const router = useRouter();
   const t = useTranslation();
 
   const draw = useMemo(() => new MapboxDraw({
@@ -74,7 +74,7 @@ const MapGeofenceEdit = ({ selectedGeofenceId }) => {
           body: JSON.stringify(newItem),
         });
         const item = await response.json();
-        navigate(`/settings/geofence/${item.id}`);
+        router.push(`/settings/geofence/${item.id}`);
       } catch (error) {
         dispatch(errorsActions.push(error.message));
       }
@@ -82,7 +82,7 @@ const MapGeofenceEdit = ({ selectedGeofenceId }) => {
 
     map.on('draw.create', listener);
     return () => map.off('draw.create', listener);
-  }, [dispatch, navigate]);
+  }, [dispatch, router]);
 
   useEffect(() => {
     const listener = async (event) => {

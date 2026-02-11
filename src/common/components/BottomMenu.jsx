@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useRouter, usePathname } from 'next/navigation';
 import {
   Paper, BottomNavigation, BottomNavigationAction, Menu, MenuItem, Typography, Badge,
 } from '@mui/material';
@@ -17,8 +17,8 @@ import { useRestriction } from '../util/permissions';
 import { nativePostMessage } from './NativeInterface';
 
 const BottomMenu = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const router = useRouter();
+  const pathname = usePathname();
   const dispatch = useDispatch();
   const t = useTranslation();
 
@@ -32,13 +32,13 @@ const BottomMenu = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const currentSelection = () => {
-    if (location.pathname === `/settings/user/${user.id}`) {
+    if (pathname === `/settings/user/${user.id}`) {
       return 'account';
-    } if (location.pathname.startsWith('/settings')) {
+    } if (pathname.startsWith('/settings')) {
       return 'settings';
-    } if (location.pathname.startsWith('/reports')) {
+    } if (pathname.startsWith('/reports')) {
       return 'reports';
-    } if (location.pathname === '/') {
+    } if (pathname === '/') {
       return 'map';
     }
     return null;
@@ -46,7 +46,7 @@ const BottomMenu = () => {
 
   const handleAccount = () => {
     setAnchorEl(null);
-    navigate(`/settings/user/${user.id}`);
+    router.push(`/settings/user/${user.id}`);
   };
 
   const handleLogout = async () => {
@@ -74,14 +74,14 @@ const BottomMenu = () => {
 
     await fetch('/api/session', { method: 'DELETE' });
     nativePostMessage('logout');
-    navigate('/login');
+    router.push('/login');
     dispatch(sessionActions.updateUser(null));
   };
 
   const handleSelection = (event, value) => {
     switch (value) {
       case 'map':
-        navigate('/');
+        router.push('/');
         break;
       case 'reports': {
         let id = selectedDeviceId;
@@ -93,14 +93,14 @@ const BottomMenu = () => {
         }
         
         if (id != null) {
-          navigate(`/reports/combined?deviceId=${id}`);
+          router.push(`/reports/combined?deviceId=${id}`);
         } else {
-          navigate('/reports/combined');
+          router.push('/reports/combined');
         }
         break;
       }
       case 'settings':
-        navigate('/settings/preferences?menu=true');
+        router.push('/settings/preferences?menu=true');
         break;
       case 'account':
         setAnchorEl(event.currentTarget);

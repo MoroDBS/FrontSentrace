@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
   FormControl, InputLabel, Select, MenuItem, Table, TableHead, TableRow, TableCell, TableBody, Link, IconButton,
 } from '@mui/material';
@@ -41,7 +41,7 @@ const columnsArray = [
 const columnsMap = new Map(columnsArray);
 
 const EventReportPage = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { classes } = useReportStyles();
   const t = useTranslation();
   const theme = useTheme();
@@ -154,7 +154,7 @@ const EventReportPage = () => {
       report.attributes.types = eventTypes.join(',');
     }
     await scheduleReport(deviceIds, groupIds, report);
-    navigate('/reports/scheduled');
+    router.push('/reports/scheduled');
   });
 
   const formatValue = (item, key) => {

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, Link as RouterLink } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { Rnd } from 'react-rnd';
 import {
   Card,
@@ -16,7 +17,6 @@ import {
   MenuItem,
   CardMedia,
   TableFooter,
-  Link,
   Tooltip,
 } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
@@ -126,7 +126,7 @@ const StatusRow = ({ name, content }) => {
 
 const StatusCard = ({ deviceId, position, onClose, disableActions, desktopPadding = 0 }) => {
   const { classes } = useStyles({ desktopPadding });
-  const navigate = useNavigate();
+  const router = useRouter();
   const dispatch = useDispatch();
   const t = useTranslation();
 
@@ -173,8 +173,8 @@ const StatusCard = ({ deviceId, position, onClose, disableActions, desktopPaddin
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ deviceId: position.deviceId, geofenceId: item.id }),
     });
-    navigate(`/settings/geofence/${item.id}`);
-  }, [navigate, position]);
+    router.push(`/settings/geofence/${item.id}`);
+  }, [router, position]);
 
   return (
     <>
@@ -237,7 +237,7 @@ const StatusCard = ({ deviceId, position, onClose, disableActions, desktopPaddin
                       <TableRow>
                         <TableCell colSpan={2} className={classes.cell}>
                           <Typography variant="body2">
-                            <Link component={RouterLink} to={`/position/${position.id}`}>{t('sharedShowDetails')}</Link>
+                            <Link href={`/position/${position.id}`}>{t('sharedShowDetails')}</Link>
                           </Typography>
                         </TableCell>
                       </TableRow>
@@ -257,7 +257,7 @@ const StatusCard = ({ deviceId, position, onClose, disableActions, desktopPaddin
                 </Tooltip>
                 <Tooltip title={t('reportReplay')}>
                   <IconButton
-                    onClick={() => navigate(`/replay?deviceId=${deviceId}`)}
+                    onClick={() => router.push(`/replay?deviceId=${deviceId}`)}
                     disabled={disableActions || !position}
                   >
                     <RouteIcon />
@@ -265,7 +265,7 @@ const StatusCard = ({ deviceId, position, onClose, disableActions, desktopPaddin
                 </Tooltip>
                 <Tooltip title={t('commandTitle')}>
                   <IconButton
-                    onClick={() => navigate(`/settings/device/${deviceId}/command`)}
+                    onClick={() => router.push(`/settings/device/${deviceId}/command`)}
                     disabled={disableActions}
                   >
                     <SendIcon />
@@ -273,7 +273,7 @@ const StatusCard = ({ deviceId, position, onClose, disableActions, desktopPaddin
                 </Tooltip>
                 <Tooltip title={t('sharedEdit')}>
                   <IconButton
-                    onClick={() => navigate(`/settings/device/${deviceId}`)}
+                    onClick={() => router.push(`/settings/device/${deviceId}`)}
                     disabled={disableActions || deviceReadonly}
                   >
                     <EditIcon />
@@ -301,7 +301,7 @@ const StatusCard = ({ deviceId, position, onClose, disableActions, desktopPaddin
           <MenuItem component="a" target="_blank" href={`https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${position.latitude}%2C${position.longitude}&heading=${position.course}`}>{t('linkStreetView')}</MenuItem>
           {navigationAppTitle && <MenuItem component="a" target="_blank" href={navigationAppLink.replace('{latitude}', position.latitude).replace('{longitude}', position.longitude)}>{navigationAppTitle}</MenuItem>}
           {!shareDisabled && !user.temporary && (
-            <MenuItem onClick={() => navigate(`/settings/device/${deviceId}/share`)}><Typography color="secondary">{t('deviceShare')}</Typography></MenuItem>
+            <MenuItem onClick={() => router.push(`/settings/device/${deviceId}/share`)}><Typography color="secondary">{t('deviceShare')}</Typography></MenuItem>
           )}
         </Menu>
       )}

@@ -47,10 +47,10 @@ const initMap = async () => {
   if (ready) return;
   if (!map.hasImage('background')) {
     // Debug: log which images we will add (helps diagnose missing-image issues)
-    // eslint-disable-next-line no-console
+     
     console.debug('MapView: adding images', Object.keys(mapImages));
     Object.entries(mapImages).forEach(([key, value]) => {
-      // eslint-disable-next-line no-console
+       
       console.debug(`MapView: addImage ${key}`, typeof value, value?.constructor?.name);
       map.addImage(key, value, {
         pixelRatio: window.devicePixelRatio,

@@ -100,7 +100,7 @@ export default async () => {
   try {
     background = await loadImage(bgUrl);
   } catch (e) {
-    // eslint-disable-next-line no-console
+     
     console.warn('preloadImages: failed to load background image', e);
     // Create a tiny fallback canvas as background
     const c = document.createElement('canvas');
@@ -115,7 +115,7 @@ export default async () => {
   try {
     mapImages.background = await prepareIcon(background);
   } catch (e) {
-    // eslint-disable-next-line no-console
+     
     console.warn('preloadImages: prepareIcon(background) failed', e);
     mapImages.background = await prepareIcon(background);
   }
@@ -124,7 +124,7 @@ export default async () => {
     const dirImg = await loadImage(dirUrl);
     mapImages.direction = await prepareIcon(dirImg);
   } catch (e) {
-    // eslint-disable-next-line no-console
+     
     console.warn('preloadImages: failed to load direction image', e);
     mapImages.direction = await prepareIcon(background);
   }
@@ -140,7 +140,7 @@ export default async () => {
           const icon = await loadImage(iconUrl);
           mapImages[`${category}-${color}`] = prepareIcon(background, icon, theme.palette[color].main);
         } catch (e) {
-          // eslint-disable-next-line no-console
+           
           console.warn(`preloadImages: failed to load icon for ${category}-${color}`, e);
           // Fallback to background with tint
           mapImages[`${category}-${color}`] = prepareIcon(background, null, theme.palette[color].main);

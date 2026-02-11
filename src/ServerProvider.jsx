@@ -21,7 +21,7 @@ const ServerProvider = ({
       await preloadImages();
     } catch (e) {
       // ignore preload errors; map will handle missing images
-      // eslint-disable-next-line no-console
+       
       console.warn('preloadImages failed', e);
     }
   }, []);

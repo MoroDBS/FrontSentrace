@@ -12,7 +12,7 @@ import {
   DialogContent,
   TextField,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { Scanner } from '@yudiel/react-qr-scanner';
 import { useTranslation } from '../common/components/LocalizationProvider';
 import Loader from '../common/components/Loader';
@@ -62,7 +62,7 @@ const useStyles = makeStyles()((theme) => ({
 
 const ChangeServerPage = () => {
   const { classes } = useStyles();
-  const navigate = useNavigate();
+  const router = useRouter();
   const dispatch = useDispatch();
   const t = useTranslation();
 
@@ -126,7 +126,7 @@ const ChangeServerPage = () => {
           filterOptions={filter}
         />
         <div className={classes.buttons}>
-          <Button color="primary" variant="outlined" onClick={() => navigate(-1)}>
+          <Button color="primary" variant="outlined" onClick={() => router.push(-1)}>
             {t('sharedCancel')}
           </Button>
           {Boolean(navigator?.mediaDevices?.getUserMedia) && (

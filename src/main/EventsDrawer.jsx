@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import {
   Drawer, IconButton, List, ListItemButton, ListItemText, Toolbar, Typography,
 } from '@mui/material';
@@ -27,7 +27,7 @@ const useStyles = makeStyles()((theme) => ({
 
 const EventsDrawer = ({ open, onClose }) => {
   const { classes } = useStyles();
-  const navigate = useNavigate();
+  const router = useRouter();
   const dispatch = useDispatch();
   const t = useTranslation();
 
@@ -60,7 +60,7 @@ const EventsDrawer = ({ open, onClose }) => {
         {events.map((event) => (
           <ListItemButton
             key={event.id}
-            onClick={() => navigate(`/event/${event.id}`)}
+            onClick={() => router.push(`/event/${event.id}`)}
             disabled={!event.id}
           >
             <ListItemText

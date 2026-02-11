@@ -16,7 +16,7 @@ import {
   FormGroup,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { MuiFileInput } from 'mui-file-input';
 import { sessionActions } from '../store';
@@ -36,7 +36,7 @@ import fetchOrThrow from '../common/util/fetchOrThrow';
 
 const ServerPage = () => {
   const { classes } = useSettingsStyles();
-  const navigate = useNavigate();
+  const router = useRouter();
   const dispatch = useDispatch();
   const t = useTranslation();
 
@@ -64,7 +64,7 @@ const ServerPage = () => {
       body: JSON.stringify(item),
     });
     dispatch(sessionActions.updateServer(await response.json()));
-    navigate(-1);
+    router.push(-1);
   });
 
   return (
@@ -287,7 +287,7 @@ const ServerPage = () => {
           </>
         )}
         <div className={classes.buttons}>
-          <Button type="button" color="primary" variant="outlined" onClick={() => navigate(-1)}>
+          <Button type="button" color="primary" variant="outlined" onClick={() => router.push(-1)}>
             {t('sharedCancel')}
           </Button>
           <Button type="button" color="primary" variant="contained" onClick={handleSave}>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useRouter, useParams, useSearchParams } from 'next/navigation';
 import {
   Accordion,
   AccordionSummary,
@@ -43,7 +43,7 @@ import fetchOrThrow from '../common/util/fetchOrThrow';
 
 const UserPage = () => {
   const { classes } = useSettingsStyles();
-  const navigate = useNavigate();
+  const router = useRouter();
   const dispatch = useDispatch();
   const t = useTranslation();
 
@@ -73,7 +73,7 @@ const UserPage = () => {
     if (deleteEmail === currentUser.email) {
       setDeleteFailed(false);
       await fetchOrThrow(`/api/users/${currentUser.id}`, { method: 'DELETE' });
-      navigate('/login');
+      router.push('/login');
       dispatch(sessionActions.updateUser(null));
     } else {
       setDeleteFailed(true);

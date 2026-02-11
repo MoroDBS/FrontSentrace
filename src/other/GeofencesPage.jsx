@@ -7,7 +7,7 @@ import {
 import Tooltip from '@mui/material/Tooltip';
 import { makeStyles } from 'tss-react/mui';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import MapView from '../map/core/MapView';
 import MapCurrentLocation from '../map/MapCurrentLocation';
 import MapGeofenceEdit from '../map/draw/MapGeofenceEdit';
@@ -64,7 +64,7 @@ const useStyles = makeStyles()((theme) => ({
 const GeofencesPage = () => {
   const { classes } = useStyles();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const router = useRouter();
   const t = useTranslation();
 
   const [selectedGeofenceId, setSelectedGeofenceId] = useState();
@@ -88,7 +88,7 @@ const GeofencesPage = () => {
           body: JSON.stringify(newItem),
         });
         const item = await response.json();
-        navigate(`/settings/geofence/${item.id}`);
+        router.push(`/settings/geofence/${item.id}`);
       } catch (error) {
         dispatch(errorsActions.push(error.message));
       }
@@ -104,7 +104,7 @@ const GeofencesPage = () => {
       <div className={classes.content}>
         <Paper square className={classes.drawer}>
           <Toolbar>
-            <IconButton edge="start" sx={{ mr: 2 }} onClick={() => navigate(-1)}>
+            <IconButton edge="start" sx={{ mr: 2 }} onClick={() => router.push(-1)}>
               <BackIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>{t('sharedGeofences')}</Typography>

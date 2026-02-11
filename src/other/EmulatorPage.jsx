@@ -7,7 +7,7 @@ import {
 import { makeStyles } from 'tss-react/mui';
 import { useTheme } from '@mui/material/styles';
 import Drawer from '@mui/material/Drawer';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import MapView from '../map/core/MapView';
 import MapCurrentLocation from '../map/MapCurrentLocation';
 import { useTranslation } from '../common/components/LocalizationProvider';
@@ -59,7 +59,7 @@ const EmulatorPage = () => {
   const theme = useTheme();
   const { classes } = useStyles();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const router = useRouter();
   const t = useTranslation();
 
   const isPhone = useMediaQuery(theme.breakpoints.down('sm'));
@@ -105,7 +105,7 @@ const EmulatorPage = () => {
           classes={{ paper: classes.drawerPaper }}
         >
           <Toolbar>
-            <IconButton edge="start" sx={{ mr: 2 }} onClick={() => navigate(-1)}>
+            <IconButton edge="start" sx={{ mr: 2 }} onClick={() => router.push(-1)}>
               <BackIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>{t('sharedEmulator')}</Typography>

@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useRouter, useParams } from 'next/navigation';
 import {
   Container, Button, Accordion, AccordionDetails, AccordionSummary, Skeleton, Typography, TextField,
 } from '@mui/material';
@@ -11,7 +11,7 @@ import fetchOrThrow from '../../common/util/fetchOrThrow';
 const EditItemView = ({
   children, endpoint, item, setItem, defaultItem, validate, onItemSaved, menu, breadcrumbs,
 }) => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { classes } = useSettingsStyles();
   const t = useTranslation();
 
@@ -43,7 +43,7 @@ const EditItemView = ({
     if (onItemSaved) {
       onItemSaved(await response.json());
     }
-    navigate(-1);
+    router.push(-1);
   });
 
   return (
@@ -69,7 +69,7 @@ const EditItemView = ({
           <Button
             color="primary"
             variant="outlined"
-            onClick={() => navigate(-1)}
+            onClick={() => router.push(-1)}
             disabled={!item}
           >
             {t('sharedCancel')}

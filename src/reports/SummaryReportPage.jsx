@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
   FormControl, InputLabel, Select, MenuItem, Table, TableHead, TableRow, TableBody, TableCell,
 } from '@mui/material';
@@ -37,7 +37,7 @@ const columnsArray = [
 const columnsMap = new Map(columnsArray);
 
 const SummaryReportPage = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { classes } = useReportStyles();
   const t = useTranslation();
   const theme = useTheme();
@@ -94,7 +94,7 @@ const SummaryReportPage = () => {
     report.type = 'summary';
     report.attributes.daily = daily;
     await scheduleReport(deviceIds, groupIds, report);
-    navigate('/reports/scheduled');
+    router.push('/reports/scheduled');
   });
 
   const formatValue = (item, key) => {

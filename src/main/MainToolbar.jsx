@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import {
   Toolbar, IconButton, OutlinedInput, InputAdornment, Popover, FormControl, InputLabel, Select, MenuItem, FormGroup, FormControlLabel, Checkbox, Badge, ListItemButton, ListItemText, Tooltip, Box, Switch, Stack,
 } from '@mui/material';
@@ -107,7 +107,7 @@ const MainToolbar = ({
 }) => {
   const { classes } = useStyles();
   const theme = useTheme();
-  const navigate = useNavigate();
+  const router = useRouter();
   const dispatch = useDispatch();
   const t = useTranslation();
 
@@ -277,7 +277,7 @@ const MainToolbar = ({
       </Popover>
       <IconButton
         edge="end"
-        onClick={() => navigate('/settings/device')}
+        onClick={() => router.push('/settings/device')}
         disabled={deviceReadonly}
         className={classes.iconButton}
       >

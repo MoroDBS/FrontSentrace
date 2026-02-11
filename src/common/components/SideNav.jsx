@@ -2,7 +2,8 @@ import { Fragment } from 'react';
 import {
   List, ListItemText, ListItemIcon, Divider, ListSubheader, ListItemButton, useTheme, makeStyles,
 } from '@mui/material';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const useStyles = makeStyles()((theme) => ({
   navItemButton: {
@@ -22,7 +23,7 @@ const useStyles = makeStyles()((theme) => ({
 }));
 
 const SideNav = ({ routes }) => {
-  const location = useLocation();
+  const pathname = usePathname();
   const theme = useTheme();
   const { classes } = useStyles();
 
@@ -39,7 +40,7 @@ const SideNav = ({ routes }) => {
           component={Link}
           key={route.href}
           to={route.href}
-          selected={location.pathname.match(route.match || route.href) !== null}
+          selected={pathname.match(route.match || route.href) !== null}
           className={classes.navItemButton}
         >
           <ListItemIcon>{route.icon}</ListItemIcon>

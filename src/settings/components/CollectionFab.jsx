@@ -1,7 +1,7 @@
 import { Fab } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
 import AddIcon from '@mui/icons-material/Add';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { useRestriction } from '../../common/util/permissions';
 
 const useStyles = makeStyles()((theme) => ({
@@ -17,7 +17,7 @@ const useStyles = makeStyles()((theme) => ({
 
 const CollectionFab = ({ editPath, disabled }) => {
   const { classes } = useStyles();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const readonly = useRestriction('readonly');
 
@@ -27,7 +27,7 @@ const CollectionFab = ({ editPath, disabled }) => {
         <Fab 
           size="medium" 
           color="primary" 
-          onClick={() => navigate(editPath)}
+          onClick={() => router.push(editPath)}
           sx={{
             boxShadow: (theme) => theme.tokens?.shadows?.md || theme.shadows[6],
             '&:hover': {

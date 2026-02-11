@@ -14,7 +14,7 @@ import { makeStyles } from 'tss-react/mui';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslation } from './LocalizationProvider';
 import BackIcon from './BackIcon';
 import tokens from '../theme/tokens';
@@ -83,7 +83,7 @@ const PageLayout = ({ menu, breadcrumbs, children }) => {
   const [miniVariant, setMiniVariant] = useState(false);
   const { classes } = useStyles({ miniVariant });
   const theme = useTheme();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const desktop = useMediaQuery(theme.breakpoints.up('md'));
 
@@ -104,7 +104,7 @@ const PageLayout = ({ menu, breadcrumbs, children }) => {
           <Toolbar>
             {!miniVariant && (
               <>
-                <IconButton color="inherit" edge="start" sx={{ mr: 2 }} onClick={() => navigate('/')}>
+                <IconButton color="inherit" edge="start" sx={{ mr: 2 }} onClick={() => router.push('/')}>
                   <BackIcon />
                 </IconButton>
                 <PageTitle breadcrumbs={breadcrumbs} />

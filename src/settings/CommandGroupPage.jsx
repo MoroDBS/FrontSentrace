@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useRouter, useParams } from 'next/navigation';
 import {
   Accordion,
   AccordionSummary,
@@ -25,7 +25,7 @@ import useSettingsStyles from './common/useSettingsStyles';
 import fetchOrThrow from '../common/util/fetchOrThrow';
 
 const CommandDevicePage = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { classes } = useSettingsStyles();
   const t = useTranslation();
 
@@ -46,7 +46,7 @@ const CommandDevicePage = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(item),
     });
-    navigate(-1);
+    router.push(-1);
   });
 
   return (
@@ -83,7 +83,7 @@ const CommandDevicePage = () => {
             type="button"
             color="primary"
             variant="outlined"
-            onClick={() => navigate(-1)}
+            onClick={() => router.push(-1)}
           >
             {t('sharedCancel')}
           </Button>

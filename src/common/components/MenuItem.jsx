@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui';
 import { ListItemButton, ListItemIcon, ListItemText, Box } from '@mui/material';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 const useStyles = makeStyles()((theme) => ({
   menuItemText: {

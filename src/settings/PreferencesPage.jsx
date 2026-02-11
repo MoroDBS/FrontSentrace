@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import {
   Accordion, AccordionSummary, AccordionDetails, Typography, Container, FormControl, InputLabel, Select, MenuItem, Checkbox, FormControlLabel, FormGroup, InputAdornment, IconButton, OutlinedInput, Autocomplete, TextField, createFilterOptions, Button,
 } from '@mui/material';
@@ -35,7 +35,7 @@ const deviceFields = [
 const PreferencesPage = () => {
   const { classes } = useSettingsStyles();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const router = useRouter();
   const t = useTranslation();
 
   const admin = useAdministrator();
@@ -79,7 +79,7 @@ const PreferencesPage = () => {
       body: JSON.stringify({ ...user, attributes }),
     });
     dispatch(sessionActions.updateUser(await response.json()));
-    navigate(-1);
+    router.push(-1);
   });
 
   const handleReboot = useCatch(async () => {
@@ -138,7 +138,7 @@ const PreferencesPage = () => {
                         setAttributes({ ...attributes, activeMapStyles: e.target.value.join(',') });
                       } else if (clicked.id !== 'custom') {
                         const query = new URLSearchParams({ attribute: clicked.attribute });
-                        navigate(`/settings/user/${user.id}?${query.toString()}`);
+                        router.push(`/settings/user/${user.id}?${query.toString()}`);
                       }
                     }}
                     multiple
@@ -161,7 +161,7 @@ const PreferencesPage = () => {
                         setAttributes({ ...attributes, selectedMapOverlay: e.target.value });
                       } else if (clicked.id !== 'custom') {
                         const query = new URLSearchParams({ attribute: clicked.attribute });
-                        navigate(`/settings/user/${user.id}?${query.toString()}`);
+                        router.push(`/settings/user/${user.id}?${query.toString()}`);
                       }
                     }}
                   >
@@ -380,7 +380,7 @@ const PreferencesPage = () => {
                 <Button
                   variant="outlined"
                   color="primary"
-                  onClick={() => navigate('/emulator')}
+                  onClick={() => router.push('/emulator')}
                 >
                   {t('sharedEmulator')}
                 </Button>
@@ -400,7 +400,7 @@ const PreferencesPage = () => {
                 type="button"
                 color="primary"
                 variant="outlined"
-                onClick={() => navigate(-1)}
+                onClick={() => router.push(-1)}
               >
                 {t('sharedCancel')}
               </Button>

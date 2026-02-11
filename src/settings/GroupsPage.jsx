@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import {
   Table, TableRow, TableCell, TableHead, TableBody,
 } from '@mui/material';
@@ -19,7 +19,7 @@ import fetchOrThrow from '../common/util/fetchOrThrow';
 
 const GroupsPage = () => {
   const { classes } = useSettingsStyles();
-  const navigate = useNavigate();
+  const router = useRouter();
   const t = useTranslation();
 
   const limitCommands = useRestriction('limitCommands');
@@ -43,14 +43,14 @@ const GroupsPage = () => {
     key: 'command',
     title: t('deviceCommand'),
     icon: <PublishIcon fontSize="small" />,
-    handler: (groupId) => navigate(`/settings/group/${groupId}/command`),
+    handler: (groupId) => router.push(`/settings/group/${groupId}/command`),
   };
 
   const actionConnections = {
     key: 'connections',
     title: t('sharedConnections'),
     icon: <LinkIcon fontSize="small" />,
-    handler: (groupId) => navigate(`/settings/group/${groupId}/connections`),
+    handler: (groupId) => router.push(`/settings/group/${groupId}/connections`),
   };
 
   return (

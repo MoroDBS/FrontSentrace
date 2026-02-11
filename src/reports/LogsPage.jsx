@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Table, TableRow, TableCell, TableHead, TableBody, IconButton, Tooltip,
@@ -21,7 +21,7 @@ const useStyles = makeStyles()((theme) => ({
 
 const LogsPage = () => {
   const { classes } = useStyles();
-  const navigate = useNavigate();
+  const router = useRouter();
   const dispatch = useDispatch();
   const t = useTranslation();
 
@@ -34,7 +34,7 @@ const LogsPage = () => {
 
   const registerDevice = (uniqueId) => {
     const query = new URLSearchParams({ uniqueId });
-    navigate(`/settings/device?${query.toString()}`);
+    router.push(`/settings/device?${query.toString()}`);
   };
 
   return (

@@ -4,7 +4,7 @@ import {
   Typography, AppBar, Toolbar, IconButton,
 } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useRouter, useParams } from 'next/navigation';
 import { useEffectAsync } from '../reactHelper';
 import { useTranslation } from '../common/components/LocalizationProvider';
 import MapView from '../map/core/MapView';
@@ -35,7 +35,7 @@ const useStyles = makeStyles()((theme) => ({
 
 const EventPage = () => {
   const { classes } = useStyles();
-  const navigate = useNavigate();
+  const router = useRouter();
   const t = useTranslation();
 
   const { id } = useParams();
@@ -76,7 +76,7 @@ const EventPage = () => {
     <div className={classes.root}>
       <AppBar color="inherit" position="static" className={classes.toolbar}>
         <Toolbar>
-          <IconButton color="inherit" edge="start" sx={{ mr: 2 }} onClick={() => navigate('/')}>
+          <IconButton color="inherit" edge="start" sx={{ mr: 2 }} onClick={() => router.push('/')}>
             <BackIcon />
           </IconButton>
           <Typography variant="h6">{event && formatType(event)}</Typography>

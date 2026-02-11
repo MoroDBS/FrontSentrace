@@ -11,7 +11,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useTheme } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { sessionActions } from '../store';
 import { useLocalization, useTranslation } from '../common/components/LocalizationProvider';
 import LoginLayout from './LoginLayout';
@@ -65,7 +65,7 @@ const useStyles = makeStyles()((theme) => ({
 const LoginPage = () => {
   const { classes } = useStyles();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const router = useRouter();
   const theme = useTheme();
   const t = useTranslation();
 
@@ -110,7 +110,7 @@ const LoginPage = () => {
         dispatch(sessionActions.updateUser(user));
         const target = window.sessionStorage.getItem('postLogin') || '/';
         window.sessionStorage.removeItem('postLogin');
-        navigate(target, { replace: true });
+        router.push(target, { replace: true });
       } else if (response.status === 401 && response.headers.get('WWW-Authenticate') === 'TOTP') {
         setCodeEnabled(true);
       } else {
@@ -126,7 +126,7 @@ const LoginPage = () => {
     const response = await fetchOrThrow(`/api/session?token=${encodeURIComponent(token)}`);
     const user = await response.json();
     dispatch(sessionActions.updateUser(user));
-    navigate('/');
+    router.push('/');
   });
 
   const handleOpenIdLogin = () => {
@@ -154,7 +154,7 @@ const LoginPage = () => {
         {nativeEnvironment && changeEnabled && (
           <IconButton
             color="primary"
-            onClick={() => navigate('/change-server')}
+            onClick={() => router.push('/change-server')}
             sx={{ borderRadius: theme.tokens?.borderRadius?.lg || 8 }}
           >
             <Tooltip
@@ -309,7 +309,7 @@ const LoginPage = () => {
           <div className={classes.extraContainer}>
             {registrationEnabled && (
               <Link
-                onClick={() => navigate('/register')}
+                onClick={() => router.push('/register')}
                 className={classes.link}
                 underline="none"
                 variant="caption"
@@ -319,7 +319,7 @@ const LoginPage = () => {
             )}
             {emailEnabled && (
               <Link
-                onClick={() => navigate('/reset-password')}
+                onClick={() => router.push('/reset-password')}
                 className={classes.link}
                 underline="none"
                 variant="caption"

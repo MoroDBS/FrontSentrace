@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import {
   Table, TableRow, TableCell, TableHead, TableBody, Switch, TableFooter, FormControlLabel,
 } from '@mui/material';
@@ -20,7 +20,7 @@ import fetchOrThrow from '../common/util/fetchOrThrow';
 
 const UsersPage = () => {
   const { classes } = useSettingsStyles();
-  const navigate = useNavigate();
+  const router = useRouter();
   const t = useTranslation();
 
   const manager = useManager();
@@ -47,7 +47,7 @@ const UsersPage = () => {
     key: 'connections',
     title: t('sharedConnections'),
     icon: <LinkIcon fontSize="small" />,
-    handler: (userId) => navigate(`/settings/user/${userId}/connections`),
+    handler: (userId) => router.push(`/settings/user/${userId}/connections`),
   };
 
   useEffectAsync(async () => {

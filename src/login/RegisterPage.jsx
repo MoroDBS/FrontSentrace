@@ -4,7 +4,7 @@ import {
   Button, TextField, Typography, Snackbar, IconButton,
 } from '@mui/material';
 import { makeStyles } from 'tss-react/mui';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import LoginLayout from './LoginLayout';
 import { useTranslation } from '../common/components/LocalizationProvider';
 import { snackBarDurationShortMs } from '../common/util/duration';
@@ -34,7 +34,7 @@ const useStyles = makeStyles()((theme) => ({
 const RegisterPage = () => {
   const { classes } = useStyles();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const router = useRouter();
   const t = useTranslation();
 
   const server = useSelector((state) => state.session.server);
@@ -68,7 +68,7 @@ const RegisterPage = () => {
       <div className={classes.container}>
         <div className={classes.header}>
           {!server.newServer && (
-            <IconButton color="primary" onClick={() => navigate('/login')}>
+            <IconButton color="primary" onClick={() => router.push('/login')}>
               <BackIcon />
             </IconButton>
           )}
@@ -129,7 +129,7 @@ const RegisterPage = () => {
         open={snackbarOpen}
         onClose={() => {
           dispatch(sessionActions.updateServer({ ...server, newServer: false }));
-          navigate('/login');
+          router.push('/login');
         }}
         autoHideDuration={snackBarDurationShortMs}
         message={t('loginCreated')}

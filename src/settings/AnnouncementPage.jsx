@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import {
   Accordion,
   AccordionSummary,
@@ -20,7 +20,7 @@ import { prefixString } from '../common/util/stringUtils';
 import fetchOrThrow from '../common/util/fetchOrThrow';
 
 const AnnouncementPage = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { classes } = useSettingsStyles();
   const t = useTranslation();
 
@@ -36,8 +36,8 @@ const AnnouncementPage = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(message),
     });
-    navigate(-1);
-  }, [users, notificator, message, navigate]);
+    router.push(-1);
+  }, [users, notificator, message, router]);
 
   return (
     <PageLayout menu={<SettingsMenu />} breadcrumbs={['serverAnnouncement']}>
@@ -81,7 +81,7 @@ const AnnouncementPage = () => {
             type="button"
             color="primary"
             variant="outlined"
-            onClick={() => navigate(-1)}
+            onClick={() => router.push(-1)}
           >
             {t('sharedCancel')}
           </Button>

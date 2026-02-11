@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import {
   Table, TableRow, TableCell, TableHead, TableBody, Button, TableFooter, FormControlLabel, Switch,
 } from '@mui/material';
@@ -27,7 +27,7 @@ import exportExcel from '../common/util/exportExcel';
 const DevicesPage = () => {
   const { classes } = useSettingsStyles();
   const theme = useTheme();
-  const navigate = useNavigate();
+  const router = useRouter();
   const t = useTranslation();
 
   const groups = useSelector((state) => state.groups.items);
@@ -77,7 +77,7 @@ const DevicesPage = () => {
     key: 'connections',
     title: t('sharedConnections'),
     icon: <LinkIcon fontSize="small" />,
-    handler: (deviceId) => navigate(`/settings/device/${deviceId}/connections`),
+    handler: (deviceId) => router.push(`/settings/device/${deviceId}/connections`),
   };
 
   return (

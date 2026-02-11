@@ -3,15 +3,13 @@
 import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { CssBaseline } from '@mui/material';
-import { BrowserRouter } from 'react-router-dom';
 import store from '../src/store';
 import ErrorBoundary from '../src/ErrorBoundary';
 import ServerProvider from '../src/ServerProvider';
 import { LocalizationProvider } from '../src/common/components/LocalizationProvider';
 import AppThemeProvider from '../src/AppThemeProvider';
-import CachingController from '../src/CachingController';
-import SocketController from '../src/SocketController';
-import UpdateController from '../src/UpdateController';
+import ErrorHandler from '../src/common/components/ErrorHandler';
+import NativeInterface from '../src/common/components/NativeInterface';
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   useEffect(() => {
@@ -86,7 +84,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
           try {
             const payload = { type: 'error', message: event.message, filename: event.filename, lineno: event.lineno, colno: event.colno, error: (event.error && event.error.stack) || null };
             sendReport(payload);
-          } catch (e) {}
+          } catch (e) {
+            // Ignore errors in error reporting
+          }
         };
 
         const onRejection = (event) => {
@@ -94,7 +94,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
             const reason = event.reason || event.detail || null;
             const payload = { type: 'unhandledrejection', reason: typeof reason === 'object' ? JSON.stringify(reason) : String(reason) };
             sendReport(payload);
-          } catch (e) {}
+          } catch (e) {
+            // Ignore errors in error reporting
+          }
         };
 
         window.addEventListener('error', onErr);
@@ -118,12 +120,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
           <LocalizationProvider>
             <AppThemeProvider>
               <CssBaseline />
-              <BrowserRouter>
-                <CachingController />
-                <SocketController />
-                <UpdateController />
-                {children}
-              </BrowserRouter>
+              {children}
+              <ErrorHandler />
+              <NativeInterface />
             </AppThemeProvider>
           </LocalizationProvider>
         </ServerProvider>

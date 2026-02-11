@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'next/navigation';
 import {
   FormControl, InputLabel, Select, MenuItem, Button, TextField, Typography,
 } from '@mui/material';

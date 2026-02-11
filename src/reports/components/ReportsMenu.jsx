@@ -11,14 +11,14 @@ import RouteIcon from '@mui/icons-material/Route';
 import EventRepeatIcon from '@mui/icons-material/EventRepeat';
 import NotesIcon from '@mui/icons-material/Notes';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
-import { useLocation } from 'react-router-dom';
+import { usePathname } from 'next/navigation';
 import { useTranslation } from '../../common/components/LocalizationProvider';
 import { useAdministrator, useRestriction } from '../../common/util/permissions';
 import MenuItem from '../../common/components/MenuItem';
 
 const ReportsMenu = () => {
   const t = useTranslation();
-  const location = useLocation();
+  const pathname = usePathname();
 
   const admin = useAdministrator();
   const readonly = useRestriction('readonly');
@@ -51,37 +51,37 @@ const ReportsMenu = () => {
           title={t('reportCombined')}
           link={buildLink('/reports/combined')}
           icon={<StarIcon />}
-          selected={location.pathname === '/reports/combined'}
+          selected={pathname === '/reports/combined'}
         />
         <MenuItem
           title={t('reportEvents')}
           link={buildLink('/reports/events')}
           icon={<NotificationsActiveIcon />}
-          selected={location.pathname === '/reports/events'}
+          selected={pathname === '/reports/events'}
         />
         <MenuItem
           title={t('reportTrips')}
           link={buildLink('/reports/trips')}
           icon={<PlayCircleFilledIcon />}
-          selected={location.pathname === '/reports/trips'}
+          selected={pathname === '/reports/trips'}
         />
         <MenuItem
           title={t('reportStops')}
           link={buildLink('/reports/stops')}
           icon={<PauseCircleFilledIcon />}
-          selected={location.pathname === '/reports/stops'}
+          selected={pathname === '/reports/stops'}
         />
         <MenuItem
           title={t('reportSummary')}
           link={buildLink('/reports/summary')}
           icon={<FormatListBulletedIcon />}
-          selected={location.pathname === '/reports/summary'}
+          selected={pathname === '/reports/summary'}
         />
         <MenuItem
           title={t('reportChart')}
           link={buildLink('/reports/chart')}
           icon={<TrendingUpIcon />}
-          selected={location.pathname === '/reports/chart'}
+          selected={pathname === '/reports/chart'}
         />
         <MenuItem
           title={t('reportReplay')}
@@ -92,7 +92,7 @@ const ReportsMenu = () => {
           title={t('reportPositions')}
           link={buildLink('/reports/route')}
           icon={<TimelineIcon />}
-          selected={location.pathname === '/reports/route'}
+          selected={pathname === '/reports/route'}
         />
       </List>
       <Divider />
@@ -101,14 +101,14 @@ const ReportsMenu = () => {
           title={t('sharedLogs')}
           link="/reports/logs"
           icon={<NotesIcon />}
-          selected={location.pathname === '/reports/logs'}
+          selected={pathname === '/reports/logs'}
         />
         {!readonly && (
           <MenuItem
             title={t('reportScheduled')}
             link="/reports/scheduled"
             icon={<EventRepeatIcon />}
-            selected={location.pathname === '/reports/scheduled'}
+            selected={pathname === '/reports/scheduled'}
           />
         )}
         {admin && (
@@ -116,7 +116,7 @@ const ReportsMenu = () => {
             title={t('statisticsTitle')}
             link="/reports/statistics"
             icon={<BarChartIcon />}
-            selected={location.pathname === '/reports/statistics'}
+            selected={pathname === '/reports/statistics'}
           />
         )}
         {admin && (
@@ -124,7 +124,7 @@ const ReportsMenu = () => {
             title={t('reportAudit')}
             link="/reports/audit"
             icon={<VerifiedUserIcon />}
-            selected={location.pathname === '/reports/audit'}
+            selected={pathname === '/reports/audit'}
           />
         )}
       </List>
